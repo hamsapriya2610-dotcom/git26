@@ -1,15 +1,15 @@
-# Use the official openjdk base image (version 11 or later)
-FROM eclipse-temurin:11-jdk
-
+# Use Eclipse Temurin Java 8 base image
+FROM docker.io/eclipse-temurin:8-jdk
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the jar file into the container's working directory
-COPY target/khadar-shoppingwebsite.jar /app/khadar-shoppingwebsite.jar
+# Copy the jar file into the container
+COPY target/khadar-shoppingwebsite.jar khadar-shoppingwebsite.jar
 
-# Expose the port that the Spring Boot app will run on
+# Expose the port used by the Spring Boot app
 EXPOSE 8181
 
-# Command to run the Spring Boot app inside the container
+# Run the Spring Boot application
 CMD ["java", "-jar", "khadar-shoppingwebsite.jar"]
+

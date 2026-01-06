@@ -1,5 +1,5 @@
 # Use Eclipse Temurin Java 8 base image
-FROM docker.io/eclipse-temurin:8-jdk
+FROM eclipse-temurin:8-jre-jammy
 
 # Set the working directory inside the container
 WORKDIR /app

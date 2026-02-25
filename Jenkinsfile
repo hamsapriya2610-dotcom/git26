@@ -9,7 +9,7 @@ pipeline {
                     def props = readProperties file: 'config.properties'
                     
                     props.each { key, value ->
-                        env."${key}" = value   // ✅ sandbox-safe way
+                        env."${key}" = value
                     }
                 }
             }
@@ -20,19 +20,21 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv("Sonarqube") {
-                   sh ' mvn clean verify sonar:sonar -Dsonar.projectKey=Sonarqubedemo1'
+                withSonarQubeEnv('Sonarqube') {
+                    sh 'mvn sonar:sonar -Dsonar.projectKey=Sonarqubedemo1'
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
     }
-    stage('Quality Gate') {
-        steps {
-            timeout(time: 10, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
-            }
-        }
-}
-}
 }

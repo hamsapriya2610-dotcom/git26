@@ -1,0 +1,23 @@
+pipeline {
+agent { label 'agent3'}
+
+ stages {
+        stage('Git Checkout'){
+            steps{
+                script{
+                    git branch: 'main/testing', url: 'https://https://github.com/hamsapriya2610-dotcom/git26/new/main'
+                    }
+                }
+            }
+        stage('Maven build') {
+            
+            steps {
+                
+                script{
+                    
+                    sh 'mvn clean install'
+                }
+            }
+        }
+}
+

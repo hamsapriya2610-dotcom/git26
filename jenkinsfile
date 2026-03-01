@@ -1,24 +1,19 @@
-pipeline{
-agent { label 'agent2'}
+pipeline {
+    agent { label 'agent2' }
 
-stages{
-stage{'checkout stage'} {
-steps{
-                script{
-                    git branch: 'main', url: 'https://https://github.com/hamsapriya2610-dotcom/git26/new/main'
-                    }
-                }
-            }
-        stage('Maven build') {
-            
+    stages {
+
+        stage('Checkout Stage') {
             steps {
-                
-                script{
-                    
-                    sh 'mvn clean install'
-                }
+                git branch: 'main', 
+                    url: 'https://github.com/hamsapriya2610-dotcom/git26.git'
             }
         }
-  }
-}
 
+        stage('Maven Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+    }
+}
